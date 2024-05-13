@@ -1,3 +1,7 @@
+body {
+    background-color: #0e0146; /* Ustawienie koloru tła dla całej strony */
+}
+
 .LoginForm {
     padding: 5rem;
     display: flex ;
@@ -6,4 +10,19 @@
     justify-content: center;
     gap: 2rem;
     align-items: center;
+}
+
+.LoginForm input,
+.LoginForm label,
+.LoginForm button,
+.LoginForm h1{
+    color: white;
+}
+
+.LoginForm input {
+    background-color: #460146;
+}
+
+.LoginForm button {
+    background-color: #3c0146;
 }
