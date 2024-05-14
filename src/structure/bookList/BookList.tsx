@@ -67,6 +67,7 @@ function BookList() {
 
     return (
         <div className="BookList">
+            <h1>List of Books</h1>
             <div className="input-group mb-3">
                 <input
                     type="search"
@@ -79,7 +80,6 @@ function BookList() {
                 columns={columns}
                 data={data}
                 fixedHeader
-                title="List of books"
                 pagination
                 selectableRows
             />

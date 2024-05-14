@@ -6,10 +6,17 @@ import {useCallback, useMemo} from "react";
 import * as yup from 'yup';
 import {Key} from "@mui/icons-material";
 import PersonIcon from '@mui/icons-material/Person';
+import {useNavigate} from "react-router-dom";
 
 function LoginForm(){
     const initialValues = {username: "", password: ""};
-    const onSubmit = useCallback((values: { username: string; password: string}, formik: any) => {console.log(values)}, []);
+    const navigate  = useNavigate()
+    const onSubmit = useCallback(
+        (values: { username: string; password: string}, formik: any) => {
+            navigate('/BookList');
+            console.log('/BookList')
+        },
+        [navigate]);
     const validationschema = useMemo(() =>
         () => yup.object().shape({
             username: yup.string().required('Required'),
@@ -32,7 +39,6 @@ function LoginForm(){
                             label="Username"
                             variant="standard"
                             name="username"
-                            sx={{ borderRadius: '20px' }}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             error={formik.touched.username && Boolean(formik.errors.username)}
@@ -46,7 +52,6 @@ function LoginForm(){
                             variant="standard"
                             type="password"
                             name="password"
-                            sx={{ borderRadius: '20px' }}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             error={formik.touched.password && Boolean(formik.errors.password)}
@@ -58,7 +63,7 @@ function LoginForm(){
                         endIcon={<LoginIcon/>}
                         type="submit"
                         form="signForm"
-                        disabled={!formik.isValid || !formik.touched.password || !formik.touched.username}
+                        disabled={!formik.isValid && formik.dirty}
                     >
                         Sign in
                     </Button>
