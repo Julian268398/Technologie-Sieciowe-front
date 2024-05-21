@@ -13,8 +13,8 @@ function LoginForm(){
     const navigate  = useNavigate()
     const onSubmit = useCallback(
         (values: { username: string; password: string}, formik: any) => {
-            navigate('/BookList');
-            console.log('/BookList')
+            navigate('/mainPage');
+            console.log('/mainPage')
         },
         [navigate]);
     const validationschema = useMemo(() =>

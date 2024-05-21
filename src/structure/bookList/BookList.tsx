@@ -66,7 +66,7 @@ function BookList() {
 
 
     return (
-        <div className="BookList">
+        <form className="BookList">
             <h1>List of Books</h1>
             <div className="input-group mb-3">
                 <input
@@ -83,7 +83,7 @@ function BookList() {
                 pagination
                 selectableRows
             />
-        </div>
+        </form>
     )
 }
 
