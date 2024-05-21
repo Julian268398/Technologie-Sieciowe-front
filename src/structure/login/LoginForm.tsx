@@ -7,16 +7,26 @@ import * as yup from 'yup';
 import {Key} from "@mui/icons-material";
 import PersonIcon from '@mui/icons-material/Person';
 import {useNavigate} from "react-router-dom";
+import {useApi} from "../../api/ApiProvider";
 
 function LoginForm(){
     const initialValues = {username: "", password: ""};
     const navigate  = useNavigate()
+    const apiClient = useApi();
+
     const onSubmit = useCallback(
-        (values: { username: string; password: string}, formik: any) => {
-            navigate('/mainPage');
-            console.log('/mainPage')
+        (values: { username: string; password: string }, formik: any) => {
+            apiClient.login(values).then((response:any) => {
+                //console.log(response);
+                if (response.success) {
+                    navigate('/mainPage');
+                } else {
+                    formik.setFieldError('username', 'Invalid username or password');
+                }
+            });
         },
-        [navigate]);
+        [apiClient, navigate],
+    );
     const validationschema = useMemo(() =>
         () => yup.object().shape({
             username: yup.string().required('Required'),
