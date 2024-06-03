@@ -46,7 +46,7 @@ export class LibraryClient {
 
     public async getBooks(): Promise<ClientResponse<any | null>> {
         try {
-            const response = await this.client.get('/books');
+            const response = await this.client.get('/book/getAll');
 
             return {
                 success: true,

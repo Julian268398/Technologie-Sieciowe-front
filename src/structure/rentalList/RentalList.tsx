@@ -1,71 +1,80 @@
 import './RentalList.css';
 import DataTable from "react-data-table-component";
-import {useState} from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
+interface Loan {
+    id: number;
+    bookId: number;
+    userId: number;
+    dateOfLoan: Date;
+    deadlineOfLoan: Date;
+    dateOfReturn?: Date;
+}
 
 function RentalList() {
-
     const columns = [
         {
             name: "Rental ID",
-            selector: (row: any) => row.id,
+            selector: (row: Loan) => row.id ? row.id.toString() : '',
             sortable: true,
         },
         {
             name: "Book ID",
-            selector: (row: any) => row.bookId,
+            selector: (row: Loan) => row.bookId ? row.bookId.toString() : '',
             sortable: true,
         },
         {
             name: "User ID",
-            selector: (row: any) => row.userId,
+            selector: (row: Loan) => row.userId ? row.userId.toString() : '',
             sortable: true,
         },
         {
             name: "Date of Loan",
-            selector: (row: any) => row.dateOfLoan,
+            selector: (row: Loan) => row.dateOfLoan ? row.dateOfLoan.toString() : '',
             sortable: true,
         },
         {
-            name: "Deadline of loan",
-            selector: (row: any) => row.deadlineOfLoan,
+            name: "Deadline of Loan",
+            selector: (row: Loan) => row.deadlineOfLoan ? row.deadlineOfLoan.toString() : '',
             sortable: true,
         },
         {
-            name: "Date of return",
-            selector: (row: any) => row.dateOfReturn,
+            name: "Date of Return",
+            selector: (row: Loan) => row.dateOfReturn ? row.dateOfReturn.toString() : 'Not returned yet',
             sortable: true,
         },
     ];
 
-    const loansData = [
-        { id: 1, bookId: 3, userId: 101, dateOfLoan: "2024-03-01", deadlineOfLoan: "2024-05-01", dateOfReturn: "2024-04-15" },
-        { id: 2, bookId: 5, userId: 102, dateOfLoan: "2024-02-20", deadlineOfLoan: "2024-04-20", dateOfReturn: "-" },
-        { id: 3, bookId: 7, userId: 103, dateOfLoan: "2024-01-10", deadlineOfLoan: "2024-03-10", dateOfReturn: "2024-03-05" },
-        { id: 4, bookId: 1, userId: 104, dateOfLoan: "2024-04-15", deadlineOfLoan: "2024-06-15", dateOfReturn: "-" },
-        { id: 5, bookId: 8, userId: 105, dateOfLoan: "2024-03-30", deadlineOfLoan: "2024-05-30", dateOfReturn: "2024-05-25" },
-        { id: 6, bookId: 2, userId: 106, dateOfLoan: "2024-02-05", deadlineOfLoan: "2024-04-05", dateOfReturn: "2024-03-30" },
-        { id: 7, bookId: 9, userId: 107, dateOfLoan: "2024-01-25", deadlineOfLoan: "2024-03-25", dateOfReturn: "-" },
-    ];
+    const [data, setData] = useState<Loan[]>([]);
+    const [searchText, setSearchText] = useState("");
 
-    const [data, setData] = useState(loansData);
+    useEffect(() => {
+        axios.get('http://localhost:8080/loan/getAll')
+            .then(response => {
+                setData(response.data);
+            })
+            .catch(error => {
+                console.error("There was an error fetching the data!", error);
+            });
+    }, []);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const searchText = e.target.value.toLowerCase();
-        const newRows = loansData.filter((row: any) => {
-            const idValue = row.id.toString().includes(searchText);
-            const bookIdValue = row.bookId.toLowerCase().includes(searchText);
-            const userIdValue = row.userId.includes(searchText);
-
-            return idValue || bookIdValue || userIdValue;
-        });
-
-        setData(newRows);
+        setSearchText(searchText);
     };
+
+    const filteredData = data.filter((row) => {
+        const idValue = row.id ? row.id.toString().includes(searchText) : false;
+        const bookIdValue = row.bookId ? row.bookId.toString().includes(searchText) : false;
+        const userIdValue = row.userId ? row.userId.toString().includes(searchText) : false;
+
+        return idValue || bookIdValue || userIdValue;
+    });
 
     return (
         <form className="RentalList">
-            <h1> List of ongoing rentals</h1>
+            <h1>List of ongoing rentals</h1>
             <div className="input-group mb-3">
                 <input
                     type="search"
@@ -76,7 +85,7 @@ function RentalList() {
             </div>
             <DataTable
                 columns={columns}
-                data={data}
+                data={filteredData}
                 fixedHeader
                 pagination
                 selectableRows
