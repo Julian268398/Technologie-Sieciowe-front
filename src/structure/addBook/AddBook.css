@@ -1,0 +1,21 @@
+body {
+    background-color: #0e0146;
+}
+
+.AddBook{
+    padding: 5rem;
+    display: flex ;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    align-items: center;
+}
+
+.AddBook h1{
+    color: white;
+}
+
+.FillIn1, .FillIn2, .FillIn3 {
+    display: flex;
+    gap: 3rem;
+}

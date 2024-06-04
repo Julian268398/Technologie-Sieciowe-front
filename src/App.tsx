@@ -6,6 +6,7 @@ import {Route, Navigate, Routes, BrowserRouter} from 'react-router-dom';
 import RentalList from "./structure/rentalList/RentalList";
 import MainPage from "./structure/mainPage/MainPage";
 import ApiProvider from "./api/ApiProvider";
+import AddBook from "./structure/addBook/AddBook";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                     <Route path="/bookList" element={<BookList />} />
                     <Route path="/rentalList" element={<RentalList />} />
                     <Route path="/mainPage" element={<MainPage />} />
+                    <Route path="/addBook" element={<AddBook />} />
                 </Routes>
             </ApiProvider>
         </BrowserRouter>

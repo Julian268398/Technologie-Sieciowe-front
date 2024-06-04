@@ -5,8 +5,8 @@ import axios from "axios";
 
 interface Loan {
     id: number;
-    bookId: number;
-    userId: number;
+    book: number;
+    user: number;
     dateOfLoan: Date;
     deadlineOfLoan: Date;
     dateOfReturn?: Date;
@@ -21,12 +21,12 @@ function RentalList() {
         },
         {
             name: "Book ID",
-            selector: (row: Loan) => row.bookId ? row.bookId.toString() : '',
+            selector: (row: Loan) => row.book ? row.book.toString() : '',
             sortable: true,
         },
         {
             name: "User ID",
-            selector: (row: Loan) => row.userId ? row.userId.toString() : '',
+            selector: (row: Loan) => row.user ? row.user.toString() : '',
             sortable: true,
         },
         {
@@ -67,8 +67,8 @@ function RentalList() {
 
     const filteredData = data.filter((row) => {
         const idValue = row.id ? row.id.toString().includes(searchText) : false;
-        const bookIdValue = row.bookId ? row.bookId.toString().includes(searchText) : false;
-        const userIdValue = row.userId ? row.userId.toString().includes(searchText) : false;
+        const bookIdValue = row.book ? row.book.toString().includes(searchText) : false;
+        const userIdValue = row.user ? row.user.toString().includes(searchText) : false;
 
         return idValue || bookIdValue || userIdValue;
     });
