@@ -7,6 +7,8 @@ import RentalList from "./structure/rentalList/RentalList";
 import MainPage from "./structure/mainPage/MainPage";
 import ApiProvider from "./api/ApiProvider";
 import AddBook from "./structure/addBook/AddBook";
+import AddLoan from "./structure/addLoan/AddLoan";
+import AddUser from "./structure/addUser/AddUser";
 
 function App() {
     return (
@@ -19,6 +21,8 @@ function App() {
                     <Route path="/rentalList" element={<RentalList />} />
                     <Route path="/mainPage" element={<MainPage />} />
                     <Route path="/addBook" element={<AddBook />} />
+                    <Route path="/addLoan" element={<AddLoan />} />
+                    <Route path="/addUser" element={<AddUser />} />
                 </Routes>
             </ApiProvider>
         </BrowserRouter>

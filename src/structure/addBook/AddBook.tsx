@@ -5,8 +5,7 @@ import axios from "axios";
 import './AddBook.css';
 import { useState } from "react";
 
-// Define the form values type
-interface FormValues {
+interface addBookValues {
     isbn: string;
     title: string;
     author: string;
@@ -15,9 +14,9 @@ interface FormValues {
     availableCopies: string;
 }
 
-const AddBook = () => {
+function AddBook () {
     const [error, setError] = useState("");
-    const initialValues: FormValues = {
+    const initialValues: addBookValues = {
         isbn: "",
         title: "",
         author: "",
@@ -28,7 +27,8 @@ const AddBook = () => {
 
     const validationSchema = yup.object().shape({
         isbn: yup
-            .string()
+            .number()
+            .typeError("Must be a number")
             .required("Required"),
         title: yup.string().required("Required"),
         author: yup.string().required("Required"),
@@ -69,10 +69,10 @@ const AddBook = () => {
         },
     };
 
-    const handleSubmit = async (values: FormValues, { setSubmitting, resetForm }: FormikHelpers<FormValues>) => {
+    const handleSubmit = async (values: addBookValues, { setSubmitting, resetForm }: FormikHelpers<addBookValues>) => {
         try {
             const response = await axios.post(
-                "http://localhost:8080/api/books/create",
+                "http://localhost:8080/books/create",
                 {
                     isbn: values.isbn,
                     title: values.title,
@@ -83,7 +83,6 @@ const AddBook = () => {
                 }
             );
 
-            // Handle the response from the backend
             console.log('Book created successfully:', response.data);
             setError("");
             resetForm();

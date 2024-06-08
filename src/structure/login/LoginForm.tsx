@@ -17,7 +17,6 @@ function LoginForm(){
     const onSubmit = useCallback(
         (values: { username: string; password: string }, formik: any) => {
             apiClient.login(values).then((response:any) => {
-                //console.log(response);
                 if (response.success) {
                     navigate('/mainPage');
                 } else {
