@@ -1,7 +1,7 @@
 import './BookList.css';
 import DataTable from "react-data-table-component";
-import {useEffect, useState} from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import { useApi } from "../../api/ApiProvider";
 
 interface Book {
     id: number;
@@ -15,44 +15,47 @@ function BookList() {
     const columns = [
         {
             name: "Book ID",
-            selector: (row: any) => row.id,
+            selector: (row: Book) => row.id,
             sortable: true,
         },
         {
             name: "Title",
-            selector: (row: any) => row.title,
+            selector: (row: Book) => row.title,
             sortable: true,
         },
         {
             name: "Isbn",
-            selector: (row: any) => row.isbn,
+            selector: (row: Book) => row.isbn,
             sortable: true,
         },
         {
             name: "Author",
-            selector: (row: any) => row.author,
+            selector: (row: Book) => row.author,
             sortable: true,
         },
         {
             name: "Available Copies",
-            selector: (row: any) => row.availableCopies,
+            selector: (row: Book) => row.availableCopies,
             sortable: true,
         },
     ];
 
     const [data, setData] = useState<Book[]>([]);
     const [searchText, setSearchText] = useState("");
-
+    const apiClient = useApi();
 
     useEffect(() => {
-        axios.get('http://localhost:8080/book/getAll')
-            .then(response => {
+        const fetchBooks = async () => {
+            const response = await apiClient.getBooks();
+            if (response.success) {
                 setData(response.data);
-            })
-            .catch(error => {
-                console.error("There was an error fetching the data!", error);
-            });
-    }, []);
+            } else {
+                console.error("There was an error fetching the data!");
+            }
+        };
+
+        fetchBooks();
+    }, [apiClient]);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const searchText = e.target.value.toLowerCase();
@@ -89,4 +92,4 @@ function BookList() {
     )
 }
 
-export default BookList
+export default BookList;

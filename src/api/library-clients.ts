@@ -63,4 +63,24 @@ export class LibraryClient {
             };
         }
     }
+
+    public async getLoans(): Promise<ClientResponse<any | null>> {
+        try {
+            const response = await this.client.get('/loan/getAll');
+
+            return {
+                success: true,
+                data: response.data,
+                statusCode: response.status,
+            };
+        } catch (error) {
+            const axiosError = error as AxiosError<Error>;
+
+            return {
+                success: false,
+                data: null,
+                statusCode: axiosError.response?.status || 0,
+            };
+        }
+    }
 }

@@ -1,7 +1,7 @@
 import './RentalList.css';
 import DataTable from "react-data-table-component";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { useApi } from "../../api/ApiProvider";
 
 interface Loan {
     id: number;
@@ -48,17 +48,20 @@ function RentalList() {
 
     const [data, setData] = useState<Loan[]>([]);
     const [searchText, setSearchText] = useState("");
+    const apiClient = useApi();
 
     useEffect(() => {
-        axios.get('http://localhost:8080/loan/getAll')
-            .then(response => {
+        const fetchLoans = async () => {
+            const response = await apiClient.getLoans();
+            if (response.success) {
                 setData(response.data);
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.error("There was an error fetching the data!", error);
-            });
-    }, []);
+            } else {
+                console.error("There was an error fetching the data!");
+            }
+        };
+
+        fetchLoans();
+    }, [apiClient]);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const searchText = e.target.value.toLowerCase();
