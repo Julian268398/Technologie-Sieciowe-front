@@ -8,11 +8,13 @@ import {Key} from "@mui/icons-material";
 import PersonIcon from '@mui/icons-material/Person';
 import {useNavigate} from "react-router-dom";
 import {useApi} from "../../api/ApiProvider";
+import {useTranslation} from 'react-i18next';
 
 function LoginForm(){
     const initialValues = {username: "", password: ""};
     const navigate  = useNavigate()
     const apiClient = useApi();
+    const { t } = useTranslation();
 
     const onSubmit = useCallback(
         (values: { username: string; password: string }, formik: any) => {
@@ -36,7 +38,9 @@ function LoginForm(){
         <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationschema} validateOnChange validateOnBlur>
             {(formik: any) => (
                 <form className="LoginForm" id="signForm" onSubmit={formik.handleSubmit} noValidate>
-                    <h1 title={"Log in"}>Log in</h1>
+                    <h1 title={"Log in"}>
+                        {t('Log in')}
+                    </h1>
                     <div style={{display: 'flex', alignItems: 'center', marginRight: '10px'}}>
                         <PersonIcon style={{
                             marginRight: '10px',

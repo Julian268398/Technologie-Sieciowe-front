@@ -9,10 +9,13 @@ import ApiProvider from "./api/ApiProvider";
 import AddBook from "./structure/addBook/AddBook";
 import AddLoan from "./structure/addLoan/AddLoan";
 import AddUser from "./structure/addUser/AddUser";
+import {I18nextProvider} from 'react-i18next';
+import i18n from "./i18n";
 
 function App() {
     return (
         <BrowserRouter>
+            <I18nextProvider i18n={i18n}>
             <ApiProvider>
                 <Routes>
                     <Route path="/" element={<Navigate to="/login" />} />
@@ -25,6 +28,7 @@ function App() {
                     <Route path="/addUser" element={<AddUser />} />
                 </Routes>
             </ApiProvider>
+            </I18nextProvider>
         </BrowserRouter>
 
 
