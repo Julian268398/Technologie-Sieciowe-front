@@ -49,7 +49,7 @@ function LoginForm(){
                         }}/>
                         <TextField
                             id="username"
-                            label="Username"
+                            label={t('Username')}
                             variant="standard"
                             name="username"
                             onChange={formik.handleChange}
@@ -61,7 +61,7 @@ function LoginForm(){
                         <Key style={{marginRight: '10px', color: 'white', marginTop: '18px'}}/>
                         <TextField
                             id="password"
-                            label="Password"
+                            label={t('Password')}
                             variant="standard"
                             type="password"
                             name="password"
@@ -78,8 +78,11 @@ function LoginForm(){
                         form="signForm"
                         disabled={!formik.isValid && formik.dirty}
                     >
-                        Sign in
+                        {t('Sign in')}
                     </Button>
+                    <a href="/addUser" className="text-gray-300 mt-3  hover:cursor-pointer hover:underline ">
+                        {t('Create an account')}
+                    </a>
                 </form>
             )}
         </Formik>

@@ -2,6 +2,7 @@ import './RentalList.css';
 import DataTable from "react-data-table-component";
 import { useEffect, useState } from "react";
 import { useApi } from "../../api/ApiProvider";
+import {useTranslation} from "react-i18next";
 
 interface Loan {
     id: number;
@@ -13,6 +14,7 @@ interface Loan {
 }
 
 function RentalList() {
+    const { t } = useTranslation();
     const columns = [
         {
             name: "Rental ID",
@@ -78,7 +80,7 @@ function RentalList() {
 
     return (
         <form className="RentalList">
-            <h1>List of ongoing rentals</h1>
+            <h1>{t('List of ongoing rentals')}</h1>
             <div className="input-group mb-3">
                 <input
                     type="search"

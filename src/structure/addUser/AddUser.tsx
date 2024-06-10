@@ -116,9 +116,9 @@ function AddUser() {
                         />
                         <TextField
                             required
-                            id="email"
+                            id="mail"
                             label="Email"
-                            name="email"
+                            name="mail"
                             value={formik.values.mail || ""}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}

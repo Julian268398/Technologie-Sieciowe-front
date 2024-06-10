@@ -4,6 +4,7 @@ import { useState } from "react";
 import * as yup from "yup";
 import axios from "axios";
 import './AddLoan.css';
+import {useTranslation} from "react-i18next";
 
 interface addLoanValues {
     bookId: number | null;
@@ -14,6 +15,7 @@ interface addLoanValues {
 }
 
 function AddLoan() {
+    const { t } = useTranslation();
     const [error, setError] = useState("");
     const initialValues: addLoanValues = {
         bookId: null,
@@ -91,13 +93,13 @@ function AddLoan() {
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
             {(formik) => (
                 <form className="AddLoan" onSubmit={formik.handleSubmit} noValidate>
-                    <h1>Here You can add a loan to the database</h1>
+                    <h1>{t('Here You can add a loan to the database')}</h1>
                     {error && <p className="error">{error}</p>}
                     <div className="FillIn1">
                         <TextField
                             required
                             id="bookId"
-                            label="Book ID"
+                            label={t('Book ID')}
                             name="bookId"
                             placeholder="Enter book ID"
                             value={formik.values.bookId || ""}
@@ -110,7 +112,7 @@ function AddLoan() {
                         <TextField
                             required
                             id="userId"
-                            label="User ID"
+                            label={t('User ID')}
                             name="userId"
                             placeholder="Enter user ID"
                             value={formik.values.userId || ""}
@@ -125,7 +127,7 @@ function AddLoan() {
                         <TextField
                             required
                             id="dateOfLoan"
-                            label="Date of Loan"
+                            label={t('Date of Loan')}
                             placeholder="Enter date (dd-mm-yyyy)"
                             value={formik.values.dateOfLoan}
                             onChange={formik.handleChange}
@@ -137,7 +139,7 @@ function AddLoan() {
                         <TextField
                             required
                             id="deadlineOfLoan"
-                            label="Deadline of Loan"
+                            label={t('Deadline of Loan')}
                             placeholder="Enter date (dd-mm-yyyy)"
                             value={formik.values.deadlineOfLoan}
                             onChange={formik.handleChange}
@@ -152,7 +154,7 @@ function AddLoan() {
                         type="submit"
                         disabled={!formik.isValid || !formik.dirty || formik.isSubmitting}
                     >
-                        Add Loan
+                        {t('Add Loan')}
                     </Button>
                 </form>
             )}

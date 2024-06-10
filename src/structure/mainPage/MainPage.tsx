@@ -12,11 +12,13 @@ import ListItemText from '@mui/material/ListItemText';
 import PersonIcon from '@mui/icons-material/Person';
 import RecentActorsIcon from '@mui/icons-material/RecentActors';
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from 'react-i18next';
 
 function MainPage() {
 
     const [open, setOpen] = React.useState(false);
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const toggleDrawer = (newOpen: boolean) => () => {
         setOpen(newOpen);
     };
@@ -48,13 +50,13 @@ function MainPage() {
 
     return (
         <div className="MainPage">
-            <h1>Welcome to library service</h1>
+            <h1>{t('Welcome to library service')}</h1>
             <div>
                 <Button
                     onClick={toggleDrawer(true)}
                     variant="outlined"
                 >
-                    What would You like to do?
+                    {t('What would You like to do?')}
                 </Button>
                 <Drawer
                     open={open}

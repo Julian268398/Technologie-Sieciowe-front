@@ -4,6 +4,7 @@ import * as yup from "yup";
 import axios from "axios";
 import './AddBook.css';
 import { useState } from "react";
+import {useTranslation} from "react-i18next";
 
 interface addBookValues {
     isbn: string;
@@ -15,6 +16,8 @@ interface addBookValues {
 }
 
 function AddBook () {
+
+    const { t } = useTranslation();
     const [error, setError] = useState("");
     const initialValues: addBookValues = {
         isbn: "",
@@ -98,7 +101,7 @@ function AddBook () {
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
             {(formik) => (
                 <form className="AddBook" onSubmit={formik.handleSubmit} noValidate>
-                    <h1>Here You can add book to database</h1>
+                    <h1>{t('Here You can add book to database')}</h1>
                     {error && <p className="error">{error}</p>}
                     <div className="FillIn1">
                         <TextField
@@ -116,7 +119,7 @@ function AddBook () {
                         <TextField
                             required
                             id="title"
-                            label="Title"
+                            label={t('Title')}
                             name="title"
                             value={formik.values.title}
                             onChange={formik.handleChange}
@@ -130,7 +133,7 @@ function AddBook () {
                         <TextField
                             required
                             id="author"
-                            label="Author"
+                            label={t('Author')}
                             name="author"
                             value={formik.values.author}
                             onChange={formik.handleChange}
@@ -142,7 +145,7 @@ function AddBook () {
                         <TextField
                             required
                             id="publisher"
-                            label="Publisher"
+                            label={t('Publisher')}
                             name="publisher"
                             value={formik.values.publisher}
                             onChange={formik.handleChange}
@@ -156,7 +159,7 @@ function AddBook () {
                         <TextField
                             required
                             id="yearOfPublish"
-                            label="Year of Publish"
+                            label={t('Year of Publish')}
                             name="yearOfPublish"
                             value={formik.values.yearOfPublish}
                             onChange={formik.handleChange}
@@ -168,7 +171,7 @@ function AddBook () {
                         <TextField
                             required
                             id="availableCopies"
-                            label="Available Copies"
+                            label={t('Available Copies')}
                             name="availableCopies"
                             value={formik.values.availableCopies}
                             onChange={formik.handleChange}
@@ -183,7 +186,7 @@ function AddBook () {
                         type="submit"
                         disabled={!formik.isValid || !formik.dirty || formik.isSubmitting}
                     >
-                        Add Book
+                        {t('Add Book')}
                     </Button>
                 </form>
             )}

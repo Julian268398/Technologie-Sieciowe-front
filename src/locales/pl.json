@@ -1,3 +1,24 @@
 {
-  "Log in": "Zaloguj się"
+  "Log in": "Logowanie",
+  "Create an account": "Załóż konto",
+  "Sign in": "Zaloguj się",
+  "Password": "Hasło",
+  "Username": "Nazwa użytkownika",
+  "Welcome to library service": "Witamy w serwisie biblioteki",
+  "What would You like to do?": "Co chciałbyś zrobić?",
+  "Here You can add book to database": "Tutaj możesz dodać książkę do bazy danych",
+  "Title": "Tytuł",
+  "Author": "Autor",
+  "Publisher": "Wydawnictwo",
+  "Year of Publish": "Rok wydania",
+  "Available Copies": "Liczba dostępnych egzemplarzy",
+  "Add Book": "Dodaj książkę",
+  "Book ID": "ID ksiązki",
+  "User ID": "ID użytkownika",
+  "Date of Loan": "Data wypożyczenia",
+  "Deadline of Loan": "Data końca wypożyczenia",
+  "Add Loan": "Dodaj wyporzyczenie",
+  "Here You can add a loan to the database": "Tutaj możesz dodać wypożyczenie do bazy danych",
+  "List of Books": "Lista książek",
+  "List of ongoing rentals": "Lista wypożyczeń"
 }

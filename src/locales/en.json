@@ -1,3 +1,24 @@
 {
-  "Log in": "Log in"
+  "Log in": "Log in",
+  "Create an account": "Create an account",
+  "Sign in": "Sign in",
+  "Password": "Password",
+  "Username": "Username",
+  "Welcome to library service": "Welcome to library service",
+  "What would You like to do?": "What would You like to do?",
+  "Here You can add book to database": "Here You can add book to database",
+  "Title": "Title",
+  "Author": "Author",
+  "Publisher": "Publisher",
+  "Year of Publish": "Year of Publish",
+  "Available Copies": "Available Copies",
+  "Add Book": "Add Book",
+  "Book ID": "Book ID",
+  "User ID": "User ID",
+  "Date of Loan": "Date of Loan",
+  "Deadline of Loan": "Deadline of Loan",
+  "Add Loan": "Add Loan",
+  "Here You can add a loan to the database": "Here You can add a loan to the database",
+  "List of Books": "List of Books",
+  "List of ongoing rentals": "List of rentals"
 }
