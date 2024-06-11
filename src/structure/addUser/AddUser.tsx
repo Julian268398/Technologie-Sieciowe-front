@@ -5,9 +5,6 @@ import axios from "axios";
 import { Button, TextField } from "@mui/material";
 import "./AddUser.css";
 import { useNavigate } from "react-router-dom";
-import MenuIconButton from "../Drawer/MenuIconButton";
-import DrawerComponent from "../Drawer/DrawerComponent";
-
 interface addUserValues {
     username: string;
     password: string;
@@ -19,7 +16,6 @@ interface addUserValues {
 function AddUser() {
     const [error, setError] = useState("");
     const navigate = useNavigate();
-    const [openDrawer, setOpenDrawer] = useState(false);
 
     const initialValues: addUserValues = {
         username: "",
@@ -87,14 +83,8 @@ function AddUser() {
         }
     };
 
-    const toggleDrawer = (newOpen: boolean) => () => {
-        setOpenDrawer(newOpen);
-    };
-
     return (
         <div>
-            <MenuIconButton ariaLabel="open drawer" onClick={toggleDrawer(true)} />
-            <DrawerComponent open={openDrawer} toggleDrawer={toggleDrawer} />
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
                 {(formik) => (
                     <form className="AddLoan" onSubmit={formik.handleSubmit} noValidate>

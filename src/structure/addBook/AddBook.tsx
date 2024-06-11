@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Snackbar, Alert } from "@mui/material";
 import { Formik, FormikHelpers } from "formik";
 import * as yup from "yup";
 import axios from "axios";
@@ -20,6 +20,8 @@ interface addBookValues {
 function AddBook() {
     const { t } = useTranslation();
     const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+    const [openSnackbar, setOpenSnackbar] = useState(false);
     const [openDrawer, setOpenDrawer] = useState(false);
 
     const initialValues: addBookValues = {
@@ -91,13 +93,20 @@ function AddBook() {
 
             console.log('Book created successfully:', response.data);
             setError("");
+            setSuccess("Book created successfully");
+            setOpenSnackbar(true);
             resetForm();
         } catch (error) {
             console.error("Error creating book:", error);
             setError("Error creating book. Please try again.");
+            setOpenSnackbar(true);
         } finally {
             setSubmitting(false);
         }
+    };
+
+    const handleCloseSnackbar = () => {
+        setOpenSnackbar(false);
     };
 
     const toggleDrawer = (newOpen: boolean) => () => {
@@ -201,8 +210,24 @@ function AddBook() {
                     </form>
                 )}
             </Formik>
+            <Snackbar
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                open={openSnackbar}
+                autoHideDuration={6000}
+                onClose={handleCloseSnackbar}
+            >
+                {error ? (
+                    <Alert onClose={handleCloseSnackbar} severity="error" sx={{ width: '100%' }}>
+                        {error}
+                    </Alert>
+                ) : (
+                    <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+                        {success}
+                    </Alert>
+                )}
+            </Snackbar>
         </>
     );
-};
+}
 
 export default AddBook;
