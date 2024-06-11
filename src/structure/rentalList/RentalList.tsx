@@ -2,7 +2,9 @@ import './RentalList.css';
 import DataTable from "react-data-table-component";
 import { useEffect, useState } from "react";
 import { useApi } from "../../api/ApiProvider";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
+import MenuIconButton from "../Drawer/MenuIconButton";
+import DrawerComponent from "../Drawer/DrawerComponent";
 
 interface Loan {
     id: number;
@@ -15,6 +17,8 @@ interface Loan {
 
 function RentalList() {
     const { t } = useTranslation();
+    const [openDrawer, setOpenDrawer] = useState(false);
+
     const columns = [
         {
             name: "Rental ID",
@@ -78,25 +82,33 @@ function RentalList() {
         return idValue || bookIdValue || userIdValue;
     });
 
+    const toggleDrawer = (newOpen: boolean) => () => {
+        setOpenDrawer(newOpen);
+    };
+
     return (
-        <form className="RentalList">
-            <h1>{t('List of ongoing rentals')}</h1>
-            <div className="input-group mb-3">
-                <input
-                    type="search"
-                    className="form-control border ps-3"
-                    placeholder="Search"
-                    onChange={handleSearch}
+        <div>
+            <MenuIconButton ariaLabel="open drawer" onClick={toggleDrawer(true)} />
+            <DrawerComponent open={openDrawer} toggleDrawer={toggleDrawer} />
+            <form className="RentalList">
+                <h1>{t('List of ongoing rentals')}</h1>
+                <div className="input-group mb-3">
+                    <input
+                        type="search"
+                        className="form-control border ps-3"
+                        placeholder="Search"
+                        onChange={handleSearch}
+                    />
+                </div>
+                <DataTable
+                    columns={columns}
+                    data={filteredData}
+                    fixedHeader
+                    pagination
+                    selectableRows
                 />
-            </div>
-            <DataTable
-                columns={columns}
-                data={filteredData}
-                fixedHeader
-                pagination
-                selectableRows
-            />
-        </form>
+            </form>
+        </div>
     )
 }
 

@@ -14,3 +14,8 @@ body {
 .AddUser h1 {
     color: white;
 }
+.MenuIconButton {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}

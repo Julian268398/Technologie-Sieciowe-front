@@ -1,10 +1,12 @@
-import {useState} from "react";
+import { useState } from "react";
 import * as yup from "yup";
-import {Formik, FormikHelpers} from "formik";
+import { Formik, FormikHelpers } from "formik";
 import axios from "axios";
-import {Button, TextField} from "@mui/material";
-import './AddUser.css'
-import {useNavigate} from "react-router-dom";
+import { Button, TextField } from "@mui/material";
+import "./AddUser.css";
+import { useNavigate } from "react-router-dom";
+import MenuIconButton from "../Drawer/MenuIconButton";
+import DrawerComponent from "../Drawer/DrawerComponent";
 
 interface addUserValues {
     username: string;
@@ -16,7 +18,8 @@ interface addUserValues {
 
 function AddUser() {
     const [error, setError] = useState("");
-    const navigate  = useNavigate()
+    const navigate = useNavigate();
+    const [openDrawer, setOpenDrawer] = useState(false);
 
     const initialValues: addUserValues = {
         username: "",
@@ -28,54 +31,54 @@ function AddUser() {
 
     const validationSchema = yup.object().shape({
         username: yup.string().required("Required"),
-        password: yup.string().required("Required").min(5, 'Your password is to short! (min. 5 characters)'),
+        password: yup.string().required("Required").min(5, "Your password is too short! (min. 5 characters)"),
         role: yup.string().notRequired(),
-        email: yup.string().required("Required"),
-        name: yup.string().required("Required"),
+        mail: yup.string().required("Required").email("Invalid email address"),
+        name: yup.string().required("Required")
     });
 
     const textFieldStyles = {
-        '& label.Mui-focused': {
-            color: 'white',
+        "& label.Mui-focused": {
+            color: "white"
         },
-        '& .MuiInput-underline:after': {
-            borderBottomColor: 'white',
+        "& .MuiInput-underline:after": {
+            borderBottomColor: "white"
         },
-        '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-                borderColor: 'white',
+        "& .MuiOutlinedInput-root": {
+            "& fieldset": {
+                borderColor: "white"
             },
-            '&:hover fieldset': {
-                borderColor: 'white',
+            "&:hover fieldset": {
+                borderColor: "white"
             },
-            '&.Mui-focused fieldset': {
-                borderColor: 'white',
+            "&.Mui-focused fieldset": {
+                borderColor: "white"
             },
-            '& input': {
-                color: 'white',
-            },
+            "& input": {
+                color: "white"
+            }
         },
-        '& .MuiInputLabel-root': {
-            color: 'white',
-        },
+        "& .MuiInputLabel-root": {
+            color: "white"
+        }
     };
 
-    const handleSubmit = async (values: addUserValues, { setSubmitting, resetForm }: FormikHelpers<addUserValues>) => {
+    const handleSubmit = async (
+        values: addUserValues,
+        { setSubmitting, resetForm }: FormikHelpers<addUserValues>
+    ) => {
         try {
-            const response = await axios.post(
-                "http://localhost:8080/auth/register",
-                {
-                    username: values.username,
-                    password: values.password,
-                    role: values.role,
-                    mail: values.mail,
-                    name: values.name
-                }
-            );
+            const response = await axios.post("http://localhost:8080/auth/register", {
+                username: values.username,
+                password: values.password,
+                role: values.role,
+                mail: values.mail,
+                name: values.name
+            });
 
-            console.log('User created successfully:', response.data);
+            console.log("User created successfully:", response.data);
             setError("");
-            navigate('/login')
+            navigate("/login");
         } catch (error) {
             console.error("Error creating user:", error);
             setError("Error creating user. Please try again.");
@@ -84,12 +87,19 @@ function AddUser() {
         }
     };
 
+    const toggleDrawer = (newOpen: boolean) => () => {
+        setOpenDrawer(newOpen);
+    };
+
     return (
-        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-            {(formik) => (
-                <form className="AddLoan" onSubmit={formik.handleSubmit} noValidate>
-                    <h1>Registration</h1>
-                    {error && <p className="error">{error}</p>}
+        <div>
+            <MenuIconButton ariaLabel="open drawer" onClick={toggleDrawer(true)} />
+            <DrawerComponent open={openDrawer} toggleDrawer={toggleDrawer} />
+            <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+                {(formik) => (
+                    <form className="AddLoan" onSubmit={formik.handleSubmit} noValidate>
+                        <h1>Registration</h1>
+                        {error && <p className="error">{error}</p>}
                         <TextField
                             required
                             id="username"
@@ -107,6 +117,7 @@ function AddUser() {
                             id="password"
                             label="Password"
                             name="password"
+                            type="password"
                             value={formik.values.password || ""}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -119,6 +130,7 @@ function AddUser() {
                             id="mail"
                             label="Email"
                             name="mail"
+                            type="email"
                             value={formik.values.mail || ""}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -138,16 +150,17 @@ function AddUser() {
                             helperText={formik.touched.name && formik.errors.name}
                             sx={textFieldStyles}
                         />
-                    <Button
-                        variant="outlined"
-                        type="submit"
-                        disabled={!formik.isValid || !formik.dirty || formik.isSubmitting}
-                    >
-                        Register
-                    </Button>
-                </form>
-            )}
-        </Formik>
+                        <Button
+                            variant="outlined"
+                            type="submit"
+                            disabled={!formik.isValid || !formik.dirty || formik.isSubmitting}
+                        >
+                            Register
+                        </Button>
+                    </form>
+                )}
+            </Formik>
+        </div>
     );
 }
 

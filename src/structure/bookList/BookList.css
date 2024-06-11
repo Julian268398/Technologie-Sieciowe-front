@@ -17,3 +17,9 @@ body {
 
 .BookList input{
     background-color: #460146;}
+
+.MenuIconButton {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}

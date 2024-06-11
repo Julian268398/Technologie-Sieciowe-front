@@ -4,7 +4,9 @@ import * as yup from "yup";
 import axios from "axios";
 import './AddBook.css';
 import { useState } from "react";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
+import MenuIconButton from "../Drawer/MenuIconButton";
+import DrawerComponent from "../Drawer/DrawerComponent";
 
 interface addBookValues {
     isbn: string;
@@ -15,10 +17,11 @@ interface addBookValues {
     availableCopies: string;
 }
 
-function AddBook () {
-
+function AddBook() {
     const { t } = useTranslation();
     const [error, setError] = useState("");
+    const [openDrawer, setOpenDrawer] = useState(false);
+
     const initialValues: addBookValues = {
         isbn: "",
         title: "",
@@ -97,100 +100,108 @@ function AddBook () {
         }
     };
 
+    const toggleDrawer = (newOpen: boolean) => () => {
+        setOpenDrawer(newOpen);
+    };
+
     return (
-        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-            {(formik) => (
-                <form className="AddBook" onSubmit={formik.handleSubmit} noValidate>
-                    <h1>{t('Here You can add book to database')}</h1>
-                    {error && <p className="error">{error}</p>}
-                    <div className="FillIn1">
-                        <TextField
-                            required
-                            id="isbn"
-                            label="ISBN"
-                            name="isbn"
-                            value={formik.values.isbn}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.isbn && Boolean(formik.errors.isbn)}
-                            helperText={formik.touched.isbn && formik.errors.isbn}
-                            sx={textFieldStyles}
-                        />
-                        <TextField
-                            required
-                            id="title"
-                            label={t('Title')}
-                            name="title"
-                            value={formik.values.title}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.title && Boolean(formik.errors.title)}
-                            helperText={formik.touched.title && formik.errors.title}
-                            sx={textFieldStyles}
-                        />
-                    </div>
-                    <div className="FillIn2">
-                        <TextField
-                            required
-                            id="author"
-                            label={t('Author')}
-                            name="author"
-                            value={formik.values.author}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.author && Boolean(formik.errors.author)}
-                            helperText={formik.touched.author && formik.errors.author}
-                            sx={textFieldStyles}
-                        />
-                        <TextField
-                            required
-                            id="publisher"
-                            label={t('Publisher')}
-                            name="publisher"
-                            value={formik.values.publisher}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.publisher && Boolean(formik.errors.publisher)}
-                            helperText={formik.touched.publisher && formik.errors.publisher}
-                            sx={textFieldStyles}
-                        />
-                    </div>
-                    <div className="FillIn3">
-                        <TextField
-                            required
-                            id="yearOfPublish"
-                            label={t('Year of Publish')}
-                            name="yearOfPublish"
-                            value={formik.values.yearOfPublish}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.yearOfPublish && Boolean(formik.errors.yearOfPublish)}
-                            helperText={formik.touched.yearOfPublish && formik.errors.yearOfPublish}
-                            sx={textFieldStyles}
-                        />
-                        <TextField
-                            required
-                            id="availableCopies"
-                            label={t('Available Copies')}
-                            name="availableCopies"
-                            value={formik.values.availableCopies}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.availableCopies && Boolean(formik.errors.availableCopies)}
-                            helperText={formik.touched.availableCopies && formik.errors.availableCopies}
-                            sx={textFieldStyles}
-                        />
-                    </div>
-                    <Button
-                        variant="outlined"
-                        type="submit"
-                        disabled={!formik.isValid || !formik.dirty || formik.isSubmitting}
-                    >
-                        {t('Add Book')}
-                    </Button>
-                </form>
-            )}
-        </Formik>
+        <>
+            <MenuIconButton ariaLabel="open drawer" onClick={toggleDrawer(true)} />
+            <DrawerComponent open={openDrawer} toggleDrawer={toggleDrawer} />
+            <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+                {(formik) => (
+                    <form className="AddBook" onSubmit={formik.handleSubmit} noValidate>
+                        <h1>{t('Here You can add book to database')}</h1>
+                        {error && <p className="error">{error}</p>}
+                        <div className="FillIn1">
+                            <TextField
+                                required
+                                id="isbn"
+                                label="ISBN"
+                                name="isbn"
+                                value={formik.values.isbn}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.isbn && Boolean(formik.errors.isbn)}
+                                helperText={formik.touched.isbn && formik.errors.isbn}
+                                sx={textFieldStyles}
+                            />
+                            <TextField
+                                required
+                                id="title"
+                                label={t('Title')}
+                                name="title"
+                                value={formik.values.title}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.title && Boolean(formik.errors.title)}
+                                helperText={formik.touched.title && formik.errors.title}
+                                sx={textFieldStyles}
+                            />
+                        </div>
+                        <div className="FillIn2">
+                            <TextField
+                                required
+                                id="author"
+                                label={t('Author')}
+                                name="author"
+                                value={formik.values.author}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.author && Boolean(formik.errors.author)}
+                                helperText={formik.touched.author && formik.errors.author}
+                                sx={textFieldStyles}
+                            />
+                            <TextField
+                                required
+                                id="publisher"
+                                label={t('Publisher')}
+                                name="publisher"
+                                value={formik.values.publisher}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.publisher && Boolean(formik.errors.publisher)}
+                                helperText={formik.touched.publisher && formik.errors.publisher}
+                                sx={textFieldStyles}
+                            />
+                        </div>
+                        <div className="FillIn3">
+                            <TextField
+                                required
+                                id="yearOfPublish"
+                                label={t('Year of Publish')}
+                                name="yearOfPublish"
+                                value={formik.values.yearOfPublish}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.yearOfPublish && Boolean(formik.errors.yearOfPublish)}
+                                helperText={formik.touched.yearOfPublish && formik.errors.yearOfPublish}
+                                sx={textFieldStyles}
+                            />
+                            <TextField
+                                required
+                                id="availableCopies"
+                                label={t('Available Copies')}
+                                name="availableCopies"
+                                value={formik.values.availableCopies}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.availableCopies && Boolean(formik.errors.availableCopies)}
+                                helperText={formik.touched.availableCopies && formik.errors.availableCopies}
+                                sx={textFieldStyles}
+                            />
+                        </div>
+                        <Button
+                            variant="outlined"
+                            type="submit"
+                            disabled={!formik.isValid || !formik.dirty || formik.isSubmitting}
+                        >
+                            {t('Add Book')}
+                        </Button>
+                    </form>
+                )}
+            </Formik>
+        </>
     );
 };
 

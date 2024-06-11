@@ -4,7 +4,9 @@ import { useState } from "react";
 import * as yup from "yup";
 import axios from "axios";
 import './AddLoan.css';
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
+import MenuIconButton from "../Drawer/MenuIconButton";
+import DrawerComponent from "../Drawer/DrawerComponent";
 
 interface addLoanValues {
     bookId: number | null;
@@ -17,6 +19,8 @@ interface addLoanValues {
 function AddLoan() {
     const { t } = useTranslation();
     const [error, setError] = useState("");
+    const [openDrawer, setOpenDrawer] = useState(false);
+
     const initialValues: addLoanValues = {
         bookId: null,
         userId: null,
@@ -89,76 +93,84 @@ function AddLoan() {
         }
     };
 
+    const toggleDrawer = (newOpen: boolean) => () => {
+        setOpenDrawer(newOpen);
+    };
+
     return (
-        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-            {(formik) => (
-                <form className="AddLoan" onSubmit={formik.handleSubmit} noValidate>
-                    <h1>{t('Here You can add a loan to the database')}</h1>
-                    {error && <p className="error">{error}</p>}
-                    <div className="FillIn1">
-                        <TextField
-                            required
-                            id="bookId"
-                            label={t('Book ID')}
-                            name="bookId"
-                            placeholder="Enter book ID"
-                            value={formik.values.bookId || ""}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.bookId && Boolean(formik.errors.bookId)}
-                            helperText={formik.touched.bookId && formik.errors.bookId}
-                            sx={textFieldStyles}
-                        />
-                        <TextField
-                            required
-                            id="userId"
-                            label={t('User ID')}
-                            name="userId"
-                            placeholder="Enter user ID"
-                            value={formik.values.userId || ""}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.userId && Boolean(formik.errors.userId)}
-                            helperText={formik.touched.userId && formik.errors.userId}
-                            sx={textFieldStyles}
-                        />
-                    </div>
-                    <div className="FillIn2">
-                        <TextField
-                            required
-                            id="dateOfLoan"
-                            label={t('Date of Loan')}
-                            placeholder="Enter date (dd-mm-yyyy)"
-                            value={formik.values.dateOfLoan}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.dateOfLoan && Boolean(formik.errors.dateOfLoan)}
-                            helperText={formik.touched.dateOfLoan && formik.errors.dateOfLoan}
-                            sx={textFieldStyles}
-                        />
-                        <TextField
-                            required
-                            id="deadlineOfLoan"
-                            label={t('Deadline of Loan')}
-                            placeholder="Enter date (dd-mm-yyyy)"
-                            value={formik.values.deadlineOfLoan}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.deadlineOfLoan && Boolean(formik.errors.deadlineOfLoan)}
-                            helperText={formik.touched.deadlineOfLoan && formik.errors.deadlineOfLoan}
-                            sx={textFieldStyles}
-                        />
-                    </div>
-                    <Button
-                        variant="outlined"
-                        type="submit"
-                        disabled={!formik.isValid || !formik.dirty || formik.isSubmitting}
-                    >
-                        {t('Add Loan')}
-                    </Button>
-                </form>
-            )}
-        </Formik>
+        <div>
+            <MenuIconButton ariaLabel="open drawer" onClick={toggleDrawer(true)} />
+            <DrawerComponent open={openDrawer} toggleDrawer={toggleDrawer} />
+            <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+                {(formik) => (
+                    <form className="AddLoan" onSubmit={formik.handleSubmit} noValidate>
+                        <h1>{t('Here You can add a loan to the database')}</h1>
+                        {error && <p className="error">{error}</p>}
+                        <div className="FillIn1">
+                            <TextField
+                                required
+                                id="bookId"
+                                label={t('Book ID')}
+                                name="bookId"
+                                placeholder="Enter book ID"
+                                value={formik.values.bookId || ""}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.bookId && Boolean(formik.errors.bookId)}
+                                helperText={formik.touched.bookId && formik.errors.bookId}
+                                sx={textFieldStyles}
+                            />
+                            <TextField
+                                required
+                                id="userId"
+                                label={t('User ID')}
+                                name="userId"
+                                placeholder="Enter user ID"
+                                value={formik.values.userId || ""}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.userId && Boolean(formik.errors.userId)}
+                                helperText={formik.touched.userId && formik.errors.userId}
+                                sx={textFieldStyles}
+                            />
+                        </div>
+                        <div className="FillIn2">
+                            <TextField
+                                required
+                                id="dateOfLoan"
+                                label={t('Date of Loan')}
+                                placeholder="Enter date (dd-mm-yyyy)"
+                                value={formik.values.dateOfLoan}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.dateOfLoan && Boolean(formik.errors.dateOfLoan)}
+                                helperText={formik.touched.dateOfLoan && formik.errors.dateOfLoan}
+                                sx={textFieldStyles}
+                            />
+                            <TextField
+                                required
+                                id="deadlineOfLoan"
+                                label={t('Deadline of Loan')}
+                                placeholder="Enter date (dd-mm-yyyy)"
+                                value={formik.values.deadlineOfLoan}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.deadlineOfLoan && Boolean(formik.errors.deadlineOfLoan)}
+                                helperText={formik.touched.deadlineOfLoan && formik.errors.deadlineOfLoan}
+                                sx={textFieldStyles}
+                            />
+                        </div>
+                        <Button
+                            variant="outlined"
+                            type="submit"
+                            disabled={!formik.isValid || !formik.dirty || formik.isSubmitting}
+                        >
+                            {t('Add Loan')}
+                        </Button>
+                    </form>
+                )}
+            </Formik>
+        </div>
     );
 }
 

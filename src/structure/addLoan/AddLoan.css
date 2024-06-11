@@ -19,3 +19,8 @@ body {
     display: flex;
     gap: 3rem;
 }
+.MenuIconButton {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}

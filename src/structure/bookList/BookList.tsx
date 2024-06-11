@@ -2,7 +2,9 @@ import './BookList.css';
 import DataTable from "react-data-table-component";
 import { useEffect, useState } from "react";
 import { useApi } from "../../api/ApiProvider";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
+import MenuIconButton from "../Drawer/MenuIconButton";
+import DrawerComponent from "../Drawer/DrawerComponent";
 
 interface Book {
     id: number;
@@ -14,6 +16,8 @@ interface Book {
 
 function BookList() {
     const { t } = useTranslation();
+    const [openDrawer, setOpenDrawer] = useState(false);
+
     const columns = [
         {
             name: "Book ID",
@@ -21,7 +25,7 @@ function BookList() {
             sortable: true,
         },
         {
-            name: "Title",
+            name: t('Title'),
             selector: (row: Book) => row.title,
             sortable: true,
         },
@@ -31,12 +35,12 @@ function BookList() {
             sortable: true,
         },
         {
-            name: "Author",
+            name: t('Author'),
             selector: (row: Book) => row.author,
             sortable: true,
         },
         {
-            name: "Available Copies",
+            name: t('Available Copies'),
             selector: (row: Book) => row.availableCopies,
             sortable: true,
         },
@@ -72,25 +76,33 @@ function BookList() {
         return titleValue || isbnValue || authorValue;
     });
 
+    const toggleDrawer = (newOpen: boolean) => () => {
+        setOpenDrawer(newOpen);
+    };
+
     return (
-        <form className="BookList">
-            <h1>{t('List of Books')}</h1>
-            <div className="input-group mb-3">
-                <input
-                    type="search"
-                    className="form-control border ps-3"
-                    placeholder="Search"
-                    onChange={handleSearch}
+        <div>
+            <MenuIconButton ariaLabel="open drawer" onClick={toggleDrawer(true)} />
+            <DrawerComponent open={openDrawer} toggleDrawer={toggleDrawer} />
+            <form className="BookList">
+                <h1>{t('List of Books')}</h1>
+                <div className="input-group mb-3">
+                    <input
+                        type="search"
+                        className="form-control border ps-3"
+                        placeholder="Search"
+                        onChange={handleSearch}
+                    />
+                </div>
+                <DataTable
+                    columns={columns}
+                    data={filteredData}
+                    fixedHeader
+                    pagination
+                    selectableRows
                 />
-            </div>
-            <DataTable
-                columns={columns}
-                data={filteredData}
-                fixedHeader
-                pagination
-                selectableRows
-            />
-        </form>
+            </form>
+        </div>
     )
 }
 
