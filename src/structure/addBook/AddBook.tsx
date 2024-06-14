@@ -91,7 +91,7 @@ function AddBook() {
                 }
             );
 
-            console.log('Book created successfully:', response.data);
+            console.log('Book created successfully:', response);
             setError("");
             setSuccess("Book created successfully");
             setOpenSnackbar(true);
