@@ -20,5 +20,10 @@
   "Add Loan": "Add Loan",
   "Here You can add a loan to the database": "Here You can add a loan to the database",
   "List of Books": "List of Books",
-  "List of ongoing rentals": "List of rentals"
+  "List of ongoing rentals": "List of rentals",
+  "Registration": "Registration",
+  "Name": "Name",
+  "Register": "Register",
+  "Rental ID": "Rental ID",
+  "Date of Return": "Date of Return"
 }

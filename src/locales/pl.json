@@ -20,5 +20,10 @@
   "Add Loan": "Dodaj wyporzyczenie",
   "Here You can add a loan to the database": "Tutaj możesz dodać wypożyczenie do bazy danych",
   "List of Books": "Lista książek",
-  "List of ongoing rentals": "Lista wypożyczeń"
+  "List of ongoing rentals": "Lista wypożyczeń",
+  "Registration": "Rejestracja",
+  "Name": "Imię",
+  "Register": "Zarejestruj się",
+  "Rental ID": "ID wypożyczenia",
+  "Date of Return": "Data zwrócenia książki"
 }

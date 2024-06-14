@@ -21,32 +21,32 @@ function RentalList() {
 
     const columns = [
         {
-            name: "Rental ID",
+            name: t('Rental ID'),
             selector: (row: Loan) => row.id ? row.id.toString() : '',
             sortable: true,
         },
         {
-            name: "Book ID",
+            name: t('Book ID'),
             selector: (row: Loan) => row.book ? row.book.toString() : '',
             sortable: true,
         },
         {
-            name: "User ID",
+            name: t('User ID'),
             selector: (row: Loan) => row.user ? row.user.toString() : '',
             sortable: true,
         },
         {
-            name: "Date of Loan",
+            name: t('Date of Loan'),
             selector: (row: Loan) => row.dateOfLoan ? row.dateOfLoan.toString() : '',
             sortable: true,
         },
         {
-            name: "Deadline of Loan",
+            name: t('Deadline of Loan'),
             selector: (row: Loan) => row.deadlineOfLoan ? row.deadlineOfLoan.toString() : '',
             sortable: true,
         },
         {
-            name: "Date of Return",
+            name: t('Date of Return'),
             selector: (row: Loan) => row.dateOfReturn ? row.dateOfReturn.toString() : 'Not returned yet',
             sortable: true,
         },

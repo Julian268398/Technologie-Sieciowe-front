@@ -5,6 +5,7 @@ import axios from "axios";
 import { Button, TextField } from "@mui/material";
 import "./AddUser.css";
 import { useNavigate } from "react-router-dom";
+import {useTranslation} from "react-i18next";
 interface addUserValues {
     username: string;
     password: string;
@@ -14,6 +15,7 @@ interface addUserValues {
 }
 
 function AddUser() {
+    const { t } = useTranslation();
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
@@ -88,12 +90,12 @@ function AddUser() {
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
                 {(formik) => (
                     <form className="AddLoan" onSubmit={formik.handleSubmit} noValidate>
-                        <h1>Registration</h1>
+                        <h1>{t('Registration')}</h1>
                         {error && <p className="error">{error}</p>}
                         <TextField
                             required
                             id="username"
-                            label="Username"
+                            label={t('Username')}
                             name="username"
                             value={formik.values.username || ""}
                             onChange={formik.handleChange}
@@ -105,7 +107,7 @@ function AddUser() {
                         <TextField
                             required
                             id="password"
-                            label="Password"
+                            label={t('Password')}
                             name="password"
                             type="password"
                             value={formik.values.password || ""}
@@ -118,7 +120,7 @@ function AddUser() {
                         <TextField
                             required
                             id="mail"
-                            label="Email"
+                            label="Mail"
                             name="mail"
                             type="email"
                             value={formik.values.mail || ""}
@@ -131,7 +133,7 @@ function AddUser() {
                         <TextField
                             required
                             id="name"
-                            label="Name"
+                            label={t('Name')}
                             name="name"
                             value={formik.values.name || ""}
                             onChange={formik.handleChange}
@@ -145,7 +147,7 @@ function AddUser() {
                             type="submit"
                             disabled={!formik.isValid || !formik.dirty || formik.isSubmitting}
                         >
-                            Register
+                            {t('Register')}
                         </Button>
                     </form>
                 )}

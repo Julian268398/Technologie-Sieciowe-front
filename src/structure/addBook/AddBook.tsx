@@ -80,7 +80,7 @@ function AddBook() {
     const handleSubmit = async (values: addBookValues, { setSubmitting, resetForm }: FormikHelpers<addBookValues>) => {
         try {
             const response = await axios.post(
-                "http://localhost:8080/books/create",
+                "http://localhost:8080/book/create",
                 {
                     isbn: values.isbn,
                     title: values.title,

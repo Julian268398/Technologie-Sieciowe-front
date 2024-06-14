@@ -13,6 +13,7 @@ import {I18nextProvider} from 'react-i18next';
 import i18n from "./i18n";
 
 function App() {
+    const token = localStorage.getItem("token");
     return (
         <BrowserRouter>
             <I18nextProvider i18n={i18n}>
@@ -20,11 +21,11 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Navigate to="/login" />} />
                     <Route path="/login" element={<LoginForm />} />
-                    <Route path="/bookList" element={<BookList />} />
-                    <Route path="/rentalList" element={<RentalList />} />
+                    <Route path="/bookList" element={token ? <BookList />: <Navigate to="/login" />} />
+                    <Route path="/rentalList" element={token ? <RentalList />: <Navigate to="/login" />} />
                     <Route path="/mainPage" element={<MainPage />} />
-                    <Route path="/addBook" element={<AddBook />} />
-                    <Route path="/addLoan" element={<AddLoan />} />
+                    <Route path="/addBook" element={token ? <AddBook />: <Navigate to="/login" />} />
+                    <Route path="/addLoan" element={token ? <AddLoan />: <Navigate to="/login" />} />
                     <Route path="/addUser" element={<AddUser />} />
                 </Routes>
             </ApiProvider>

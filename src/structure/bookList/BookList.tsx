@@ -20,7 +20,7 @@ function BookList() {
 
     const columns = [
         {
-            name: "Book ID",
+            name: t('Book ID'),
             selector: (row: Book) => row.id,
             sortable: true,
         },

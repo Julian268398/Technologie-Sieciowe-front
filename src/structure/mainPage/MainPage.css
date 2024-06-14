@@ -4,7 +4,7 @@ body {
 
 .MainPage {
     padding: 5rem;
-    display: flex ;
+    display: flex;
     margin-top: 7%;
     flex-direction: column;
     justify-content: center;
@@ -12,6 +12,12 @@ body {
     align-items: center;
 }
 
-.MainPage h1{
+.MainPage h1 {
     color: white;
+}
+
+.TranslateButton {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
 }
