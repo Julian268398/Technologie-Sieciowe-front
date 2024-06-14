@@ -6,6 +6,8 @@ import { Button, TextField } from "@mui/material";
 import "./AddUser.css";
 import { useNavigate } from "react-router-dom";
 import {useTranslation} from "react-i18next";
+import TranslateButton from "../../locales/TranslateButton";
+import * as React from "react";
 interface addUserValues {
     username: string;
     password: string;
@@ -90,6 +92,9 @@ function AddUser() {
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
                 {(formik) => (
                     <form className="AddLoan" onSubmit={formik.handleSubmit} noValidate>
+                        <div className="TranslateButton">
+                            <TranslateButton/>
+                        </div>
                         <h1>{t('Registration')}</h1>
                         {error && <p className="error">{error}</p>}
                         <TextField

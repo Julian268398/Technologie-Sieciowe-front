@@ -26,3 +26,9 @@ body {
 .LoginForm button {
     background-color: #3c0146;
 }
+
+.TranslateButton {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}

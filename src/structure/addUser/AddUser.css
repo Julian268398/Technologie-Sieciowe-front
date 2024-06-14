@@ -19,3 +19,8 @@ body {
     top: 1rem;
     left: 1rem;
 }
+.TranslateButton {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}

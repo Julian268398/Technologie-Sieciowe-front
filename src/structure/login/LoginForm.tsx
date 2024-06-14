@@ -9,6 +9,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import {useNavigate} from "react-router-dom";
 import {useApi} from "../../api/ApiProvider";
 import {useTranslation} from 'react-i18next';
+import TranslateButton from "../../locales/TranslateButton";
+import * as React from "react";
 
 function LoginForm(){
     const initialValues = {username: "", password: ""};
@@ -39,6 +41,9 @@ function LoginForm(){
         <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationschema} validateOnChange validateOnBlur>
             {(formik: any) => (
                 <form className="LoginForm" id="signForm" onSubmit={formik.handleSubmit} noValidate>
+                    <div className="TranslateButton">
+                        <TranslateButton/>
+                    </div>
                     <h1 title={"Log in"}>
                         {t('Log in')}
                     </h1>
