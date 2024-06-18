@@ -5,8 +5,8 @@ import * as yup from "yup";
 import axios from "axios";
 import './AddLoan.css';
 import { useTranslation } from "react-i18next";
-import MenuIconButton from "../Drawer/MenuIconButton";
-import DrawerComponent from "../Drawer/DrawerComponent";
+import MenuIconButton from "../drawer/MenuIconButton";
+import DrawerComponent from "../drawer/DrawerComponent";
 
 interface addLoanValues {
     bookId: number | null;

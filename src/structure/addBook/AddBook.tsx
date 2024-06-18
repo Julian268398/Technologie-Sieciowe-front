@@ -5,8 +5,8 @@ import axios from "axios";
 import './AddBook.css';
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import MenuIconButton from "../Drawer/MenuIconButton";
-import DrawerComponent from "../Drawer/DrawerComponent";
+import MenuIconButton from "../drawer/MenuIconButton";
+import DrawerComponent from "../drawer/DrawerComponent";
 
 interface addBookValues {
     isbn: string;

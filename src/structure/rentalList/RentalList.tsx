@@ -3,8 +3,8 @@ import DataTable from "react-data-table-component";
 import { useEffect, useState } from "react";
 import { useApi } from "../../api/ApiProvider";
 import { useTranslation } from "react-i18next";
-import MenuIconButton from "../Drawer/MenuIconButton";
-import DrawerComponent from "../Drawer/DrawerComponent";
+import MenuIconButton from "../drawer/MenuIconButton";
+import DrawerComponent from "../drawer/DrawerComponent";
 
 interface Loan {
     id: number;

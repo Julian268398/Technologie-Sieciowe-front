@@ -2,7 +2,7 @@ import './MainPage.css';
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import { useTranslation } from 'react-i18next';
-import DrawerComponent from '../Drawer/DrawerComponent';
+import DrawerComponent from '../drawer/DrawerComponent';
 import TranslateButton from '../../locales/TranslateButton';
 
 function MainPage() {
