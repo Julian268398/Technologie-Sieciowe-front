@@ -72,6 +72,8 @@ function AddLoan() {
     };
 
     const handleSubmit = async (values: addLoanValues, { setSubmitting, resetForm }: FormikHelpers<addLoanValues>) => {
+        const token = localStorage.getItem("token");
+
         try {
             const response = await axios.post(
                 "http://localhost:8080/loan/create",
@@ -81,6 +83,11 @@ function AddLoan() {
                     dateOfLoan: values.dateOfLoan,
                     deadlineOfLoan: values.deadlineOfLoan,
                     dateOfReturn: values.dateOfReturn
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
                 }
             );
 

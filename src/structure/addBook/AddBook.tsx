@@ -23,6 +23,7 @@ function AddBook() {
     const [success, setSuccess] = useState("");
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [openDrawer, setOpenDrawer] = useState(false);
+    const token = localStorage.getItem("token");
 
     const initialValues: addBookValues = {
         isbn: "",
@@ -78,6 +79,8 @@ function AddBook() {
     };
 
     const handleSubmit = async (values: addBookValues, { setSubmitting, resetForm }: FormikHelpers<addBookValues>) => {
+        const token = localStorage.getItem("token");
+
         try {
             const response = await axios.post(
                 "http://localhost:8080/book/create",
@@ -88,6 +91,11 @@ function AddBook() {
                     publisher: values.publisher,
                     yearOfPublish: values.yearOfPublish,
                     availableCopies: values.availableCopies,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
                 }
             );
 
